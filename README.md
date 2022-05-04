@@ -2,7 +2,7 @@
 Core smart contract that supports an NFT sale via CADAF marketplace on Tezos blockchain
 
 ## Smart Contract Description
-It covers netx functions:
+It covers next functions:
 
 - ######  changeCadafPercentage
 

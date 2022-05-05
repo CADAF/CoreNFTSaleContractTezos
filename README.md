@@ -3,22 +3,15 @@ Core smart contract that supports an NFT sale via CADAF marketplace on Tezos blo
 
 --------
 
- The main JS file can be found in ~src\utils\wallet.js
+You can find:
+- #### Smart contract
+in tezosSC.py
 
---------
+- #### DemoApp with docs
+ in DemoApp Folder
 
-## How to run the project
 
-```bash
-yarn install
-yarn start
-```
 
--------
-
-This project shows integration with BEACON.
-
-The ChangeCadafPercentage function is located on the main screen, which changes the percentage received by CADAF for all user transactions (no more than 50).
 
 ## Smart Contract Description
 It covers next functions:
@@ -37,4 +30,4 @@ It covers next functions:
 
 - ######   fa2_transfer
 
-- ######   mintNFT (now it works without IPFS, it's needed to put link to generated JSON. For example https://ipfs.io/ipfs/Qmd5MDvLWFmUC7aZR9ZQWzLNqVejchGmD39Zgx3wrHsy3d?filename=tezosNft.json)
+- ######   mintNFT 

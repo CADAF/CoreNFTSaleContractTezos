@@ -23,9 +23,8 @@ Functions that are **ready for integration**:
 
 Some functions that are **made, but require improvements**:
 - ######  mintNFT
-***TODO***: 
-    1) IPFS JSON CREATION NOT YET IMPLEMENTED
-    Function is waiting for link to JSON file and doesn't create it by itself
+At the mmoment it's needed to put link to generated JSON file, for example https://ipfs.io/ipfs/Qmd5MDvLWFmUC7aZR9ZQWzLNqVejchGmD39Zgx3wrHsy3d?filename=tezosNft.json
+Link isn't generated automatically but for tests you can use this link 
 
 
 

@@ -37,4 +37,4 @@ It covers next functions:
 
 - ######   fa2_transfer
 
-- ######   mintNFT
+- ######   mintNFT (now it works without IPFS, it's needed to put link to generated JSON)

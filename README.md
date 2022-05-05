@@ -1,7 +1,11 @@
 # CoreNFTSaleContractTezos
 Core smart contract that supports an NFT sale via CADAF marketplace on Tezos blockchain
 
-## The main JS file can be found in ~src\utils\wallet.js
+--------
+
+ The main JS file can be found in ~src\utils\wallet.js
+
+--------
 
 ## How to run the project
 

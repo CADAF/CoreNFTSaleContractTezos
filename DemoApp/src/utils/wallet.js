@@ -65,9 +65,6 @@ export const setCadafPercentage = async (percent) => {
   }
 };
 
-//===============================================================================================
-//---All functions below is not implemented to web-version, but are created as API---------------
-//===============================================================================================
 
 export const changeMintingPrice = async (price) => {
   const response = await checkIfWalletConnected(wallet);

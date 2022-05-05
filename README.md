@@ -37,4 +37,4 @@ It covers next functions:
 
 - ######   fa2_transfer
 
-- ######   mintNFT (now it works without IPFS, it's needed to put link to generated JSON)
+- ######   mintNFT (now it works without IPFS, it's needed to put link to generated JSON. For example https://ipfs.io/ipfs/Qmd5MDvLWFmUC7aZR9ZQWzLNqVejchGmD39Zgx3wrHsy3d?filename=tezosNft.json)

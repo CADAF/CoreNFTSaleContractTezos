@@ -89,7 +89,7 @@ The **main JS file** can be found in ~src\utils\wallet.js
   - link (string)
 
 
-### Currently in development **:
+## Currently in development:
 - ###  mintNFT
   *User mint NFT paying for its creation*
 
@@ -98,8 +98,6 @@ The **main JS file** can be found in ~src\utils\wallet.js
   - link_to_metadata (IPFS link to JSON file: string)
 
 
-------
-
-> Note: A link to JSON metadata file **isn't generated automatically** at the moment, but for testing purposes you can use the following link: https://ipfs.io/ipfs/Qmd5MDvLWFmUC7aZR9ZQWzLNqVejchGmD39Zgx3wrHsy3d?filename=tezosNft.json
-
-> Other docs can be found at https://docs.google.com/document/d/1XmrUUwZ-LQ5dyNqqn6P2NlwOn0XJwhsE78K6IoI0TPI/edit?usp=sharing
+## Notes:
+1. A link to JSON metadata file **isn't generated automatically** at the moment, but for testing purposes you can use the following link: https://ipfs.io/ipfs/Qmd5MDvLWFmUC7aZR9ZQWzLNqVejchGmD39Zgx3wrHsy3d?filename=tezosNft.json
+2. Other docs can be found at https://docs.google.com/document/d/1XmrUUwZ-LQ5dyNqqn6P2NlwOn0XJwhsE78K6IoI0TPI/edit?usp=sharing

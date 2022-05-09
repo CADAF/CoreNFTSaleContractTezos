@@ -1,5 +1,10 @@
-# CADAF DRAFT
-------
+## About
+
+This project shows integration with BEACON.
+
+The ChangeCadafPercentage function is located on the main screen, which changes the percentage received by CADAF for all user transactions (no more than 50).
+
+
 ## How to run the project
 ```bash
 yarn install
@@ -7,52 +12,56 @@ yarn start
 ```
 The **main JS file** can be found in ~src\utils\wallet.js
 
--------
-This project shows integration with BEACON.
 
-The ChangeCadafPercentage function is located on the main screen, which changes the percentage received by CADAF for all user transactions (no more than 50).
+## Functions **ready for integration**:
+- ###  changeCadafPercentage
+  *Set CADAF percentage for sale NFT*
 
------
-### Functions that are **ready for integration**:
-- ######  changeCadafPercentage
- *Set CADAF percentage for sale NFT*
- **Input data:** 
- 
- -  percent (new percent for sale: int)
+  **Input data:** 
+  -  percent (new percent for sale: int)
+  
+  **Returns**: None
 
 
-- ######  changeMintingPrice
+- ###  changeMintingPrice
   *Set CADAF percentage for minting NFT*
-  **Input data:** 
 
+  **Input data:**
   - price (new price for minting: int)
+  
+  **Output data:** None
 
-- ######  sellToken
- *User puts his NFT up for sale*
- **Input data:** 
- 
- - price (new price included all comissions (CADAF's and aithor's): int)
- 
- 
- - tokenID (user's NFT id: int)
- 
-- ######  purchase
-  *User buys NFT*
+
+- ###  sellToken
+  *User puts his NFT up for sale*
+
   **Input data:** 
+  - price (new price included all comissions (CADAF's and aithor's): int) 
+  - tokenID (user's NFT id: int)
+ 
+  **Output data:** None
 
+
+- ###  purchase
+  *User buys NFT*
+
+  **Input data:** 
   - tokenID  (tokenID to buy+: int)
 
-- ######  withdraw
+  **Output data:** None
+
+
+- ###  withdraw
   *Give to admin of smart-contract an ability to withdraw all commissions*
   **Input data:** 
-
 
   - address (address for sending funds: string)
   - amount (amount of money to withdraw: string)
 
+  **Output data:** None
 
 
-- ######   balanceOf
+- ###   balanceOf
   *Check user's ownership*
   **Input data:**   -
 
@@ -60,17 +69,16 @@ The ChangeCadafPercentage function is located on the main screen, which changes 
 
   **Output data:** 
 
-
   - true (if user is NFT owner)
   - false (if user isn't NFT owner)
 
-- ######   showAllTokenOffers
+- ###   showAllTokenOffers
   *Returns all NFT's that are on sale*
+  
   **Output data:**
-
   - saleOffers (NFT's that are on sale: array of int)
 
-- ######   getTokenMeta
+- ###   getTokenMeta
   *Get link to NFT's metadata*
   **Input data:**   
 
@@ -81,20 +89,17 @@ The ChangeCadafPercentage function is located on the main screen, which changes 
   - link (string)
 
 
-### Some functions that are **made, but require improvements**:
-- ######  mintNFT
+### Currently in development **:
+- ###  mintNFT
   *User mint NFT paying for its creation*
-  **Input data:**
-  
-  -  royalties (author commission for further sales (no more than 7%): int)
-  - link_to_metadata (IPFS link to JSON file: string)
 
-*At the moment it's needed to put link to generated JSON file, for example https://ipfs.io/ipfs/Qmd5MDvLWFmUC7aZR9ZQWzLNqVejchGmD39Zgx3wrHsy3d?filename=tezosNft.json
-Link **isn't generated automatically** but for tests you can use this link *
+  **Input data:**  
+  -  royalties (author commission for further sales, no more than 7%: int)
+  - link_to_metadata (IPFS link to JSON file: string)
 
 
 ------
 
-Other docs can be found at https://docs.google.com/document/d/1XmrUUwZ-LQ5dyNqqn6P2NlwOn0XJwhsE78K6IoI0TPI/edit?usp=sharing
+> Note: A link to JSON metadata file **isn't generated automatically** at the moment, but for testing purposes you can use the following link: https://ipfs.io/ipfs/Qmd5MDvLWFmUC7aZR9ZQWzLNqVejchGmD39Zgx3wrHsy3d?filename=tezosNft.json
 
------
+> Other docs can be found at https://docs.google.com/document/d/1XmrUUwZ-LQ5dyNqqn6P2NlwOn0XJwhsE78K6IoI0TPI/edit?usp=sharing

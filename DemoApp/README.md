@@ -14,6 +14,7 @@ The **main JS file** can be found in ~src\utils\wallet.js
 
 
 ## Functions **ready for integration**:
+
 - ###  changeCadafPercentage
   *Set CADAF percentage for sale NFT*
 
@@ -53,8 +54,8 @@ The **main JS file** can be found in ~src\utils\wallet.js
 
 - ###  withdraw
   *Give to admin of smart-contract an ability to withdraw all commissions*
-  **Input data:** 
 
+  **Input data:**
   - address (address for sending funds: string)
   - amount (amount of money to withdraw: string)
 
@@ -63,14 +64,14 @@ The **main JS file** can be found in ~src\utils\wallet.js
 
 - ###   balanceOf
   *Check user's ownership*
-  **Input data:**   -
 
+  **Input data:**
   - tokenID (id of token to check ownership)
 
   **Output data:** 
-
   - true (if user is NFT owner)
   - false (if user isn't NFT owner)
+
 
 - ###   showAllTokenOffers
   *Returns all NFT's that are on sale*
@@ -78,14 +79,14 @@ The **main JS file** can be found in ~src\utils\wallet.js
   **Output data:**
   - saleOffers (NFT's that are on sale: array of int)
 
+
 - ###   getTokenMeta
   *Get link to NFT's metadata*
-  **Input data:**   
-
+  
+  **Input data:**
   - tokenID (id of token to find meta)
 
-  **Output data:** 
-
+  **Output data:**
   - link (string)
 
 
@@ -96,6 +97,8 @@ The **main JS file** can be found in ~src\utils\wallet.js
   **Input data:**  
   -  royalties (author commission for further sales, no more than 7%: int)
   - link_to_metadata (IPFS link to JSON file: string)
+
+  **Output data:** None
 
 
 ## Notes:

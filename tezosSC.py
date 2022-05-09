@@ -17,7 +17,7 @@ class Marketplace(sp.Contract):
             token = token,
             metadata = metadata,
             admin = admin,
-            data = sp.big_map(tkey=sp.TNat, tvalue=sp.TRecord(holder=sp.TAddress, author = sp.TAddress, owner = sp.TAddress, royalties=sp.TNat, amount=sp.TNat, token_id=sp.TNat, collectable=sp.TBool)),
+            data = sp.big_map(tkey=sp.TNat, tvalue=sp.TRecord(holder=sp.TAddress, author = sp.TAddress, owner = sp.TAddress, royalties=sp.TNat, token_id=sp.TNat, link_to_json = sp.TBytes, collectable=sp.TBool, amount=sp.TNat )),
             royalties = sp.big_map(tkey=sp.TNat, tvalue=sp.TRecord(issuer=sp.TAddress, royalties=sp.TNat)),
             counter = 0,
             token_id = 0,
@@ -47,7 +47,7 @@ class Marketplace(sp.Contract):
             sp.mutez(0), 
             c)
         
-        self.data.data[self.data.token_id] = sp.record(holder=sp.self_address, author = sp.sender, owner = sp.sender, royalties = params.royalties, amount = 1, token_id=self.data.token_id, collectable=False)
+        self.data.data[self.data.token_id] = sp.record(holder=sp.self_address, author = sp.sender, owner = sp.sender, royalties = params.royalties, token_id=self.data.token_id, link_to_json = params.metadata, collectable=False, amount = 1)
         self.data.token_id += 1
 
 
@@ -130,7 +130,6 @@ def test():
     #scenario += marketplace.mint(sp.record(royalties = 3, metadata = sp.pack("ipfs://bafyreibwl5hhjgrat5l7cmjlv6ppwghm6ijygpz2xor2r6incfcxnl7y3e/metadata.json"))).run(sender = admin,amount = sp.mutez(1000),)
     scenario.h2("Mint from Mark")
     scenario += marketplace.mint(sp.record(royalties = 3, metadata = sp.pack("123423"))).run(sender = mark, amount = sp.mutez(1000))
-    scenario += marketplace.transfer().run(sender = mark)
     scenario += marketplace.set_price_for_minting(2000).run(sender = admin)
     scenario += marketplace.mint(sp.record(royalties = 3, metadata = sp.pack("123423"))).run(sender = mark, amount = sp.mutez(2000))
     scenario.h2("Withdraw")

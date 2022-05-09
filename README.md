@@ -16,18 +16,30 @@ in tezosSC.py
 ## Smart Contract Description
 It covers next functions:
 
-- ######  changeCadafPercentage
+- ######  changeCadafPercentage'
+
+  *Set CADAF percentage for sale NFT*
 
 - ######  changeMintingPrice
 
+  *Set CADAF percentage for minting NFT*
+
 - ######  withdraw
+
+  *Give to admin of smart-contract an ability to withdraw all commissions*
 
 - ######  sellToken 
 
+  *User puts his NFT up for sale*
+
 - ######  purchase
+
+  *User buys NFT*
 
 - ######   update_admin
 
-- ######   fa2_transfer
+  *Update ownership of smart-contract*
 
 - ######   mintNFT 
+
+  *User mint NFT paying for its creation*

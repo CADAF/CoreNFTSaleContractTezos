@@ -2,7 +2,7 @@
 Core smart contract that supports an NFT sale via CADAF marketplace on Tezos blockchain
 
 Main CADAF NFT archetecture blueprint:
-![image](https://user-images.githubusercontent.com/2915361/168102210-1c215951-ab2c-4a13-b465-a640c6a00c1c.png)
+![image](https://user-images.githubusercontent.com/2915361/168105307-4eceb5da-fe7d-49b7-8114-93bb38c0249b.png)
 
 --------
 

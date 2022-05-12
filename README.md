@@ -9,6 +9,9 @@ in tezosSC.py
 
 - #### DemoApp with docs
  in DemoApp Folder
+ 
+- #### Python Server
+in python.py
 
 
 

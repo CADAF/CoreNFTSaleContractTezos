@@ -18,7 +18,6 @@ class Marketplace(sp.Contract):
             metadata = metadata,
             admin = admin,
             data = sp.big_map(tkey=sp.TNat, tvalue=sp.TRecord(holder=sp.TAddress, author = sp.TAddress, owner = sp.TAddress, royalties=sp.TNat, token_id=sp.TNat, link_to_json = sp.TBytes, collectable=sp.TBool, amount=sp.TNat )),
-            royalties = sp.big_map(tkey=sp.TNat, tvalue=sp.TRecord(issuer=sp.TAddress, royalties=sp.TNat)),
             counter = 0,
             token_id = 0,
             )

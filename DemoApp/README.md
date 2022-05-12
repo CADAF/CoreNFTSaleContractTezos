@@ -31,7 +31,18 @@ The **main JS file** can be found in ~src\utils\wallet.js
   - price (new price for minting: int)
   
   **Output data:** None
+  
+  
+- ###  mintNFT
+  *User mint NFT paying for its creation*
 
+  **Input data:**  
+  -  royalties (author commission for further sales, no more than 7%: int)
+  - name (NFT name: string)
+  - description (NFT descsription: string)
+  - link_to_image (link to NFT image: string)
+
+  **Output data:** None
 
 - ###  sellToken
   *User puts his NFT up for sale*
@@ -90,7 +101,6 @@ The **main JS file** can be found in ~src\utils\wallet.js
   - link (string)
 
 
-## Currently in development:
 - ###  mintNFT
   *User mint NFT paying for its creation*
 
@@ -102,5 +112,4 @@ The **main JS file** can be found in ~src\utils\wallet.js
 
 
 ## Notes:
-1. A link to JSON metadata file **isn't generated automatically** at the moment, but for testing purposes you can use the following link: https://ipfs.io/ipfs/Qmd5MDvLWFmUC7aZR9ZQWzLNqVejchGmD39Zgx3wrHsy3d?filename=tezosNft.json
-2. Other docs can be found at https://docs.google.com/document/d/1XmrUUwZ-LQ5dyNqqn6P2NlwOn0XJwhsE78K6IoI0TPI/edit?usp=sharing
+1. Other docs can be found at https://docs.google.com/document/d/1XmrUUwZ-LQ5dyNqqn6P2NlwOn0XJwhsE78K6IoI0TPI/edit?usp=sharing

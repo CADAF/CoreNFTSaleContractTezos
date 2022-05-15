@@ -101,14 +101,6 @@ The **main JS file** can be found in ~src\utils\wallet.js
   - link (string)
 
 
-- ###  mintNFT
-  *User mint NFT paying for its creation*
-
-  **Input data:**  
-  -  royalties (author commission for further sales, no more than 7%: int)
-  - link_to_metadata (IPFS link to JSON file: string)
-
-  **Output data:** None
 
 
 ## Notes:

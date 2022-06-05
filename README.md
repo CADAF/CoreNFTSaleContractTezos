@@ -20,6 +20,7 @@ in python.py
 
 
 ## Smart Contract Description
+Smart Contract documentation can be found in https://drive.google.com/file/d/1mCOVeamoiGuvO0-wvmQ6N8v5z98dwLht/view?usp=sharing
 It covers next functions:
 
 - ######  changeCadafPercentage'

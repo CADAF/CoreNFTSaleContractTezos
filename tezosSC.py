@@ -13,12 +13,11 @@ class Marketplace(sp.Contract):
         self.fee =0
         self.init(
             price_for_minting = 1000,
-            to_cadaf = 3,
+            to_cadaf = sp.nat(3),
             token = token,
             metadata = metadata,
             admin = admin,
             data = sp.big_map(tkey=sp.TNat, tvalue=sp.TRecord(holder=sp.TAddress, author = sp.TAddress, owner = sp.TAddress, royalties=sp.TNat, token_id=sp.TNat, link_to_json = sp.TBytes, collectable=sp.TBool, amount=sp.TNat )),
-            counter = 0,
             token_id = 0,
             )
 
@@ -75,7 +74,7 @@ class Marketplace(sp.Contract):
 
         #sending rewards
         toCreator = self.data.data[params.token_id].royalties
-        toSender = sp.as_nat(100-toCreator)-sp.as_nat(self.data.to_cadaf)
+        toSender = sp.as_nat(100-toCreator)-self.data.to_cadaf
         sp.send(self.data.data[params.token_id].author, sp.split_tokens(sp.amount, toCreator, 100))
         sp.send(self.data.data[params.token_id].owner, sp.split_tokens(sp.amount,  sp.as_nat(toSender), 100))
 
@@ -113,20 +112,15 @@ def test():
     vera = sp.test_account("user3")
     
     
-    token_contract = Token(FA2.FA2_config(non_fungible = True), admin = admin.address, metadata = sp.utils.metadata_of_url("ipfs://QmW8jPMdBmFvsSEoLWPPhaozN6jGQFxxkwuMLtVFqEy6Fb"))
+    token_contract = Token(FA2.FA2_config(non_fungible = True), admin = admin.address, metadata = sp.utils.metadata_of_url("ipfs://QmeF48X9tNUriCibMUwBbkAASAEzS53zkg8CxEk1qHmjpy"))
     
     scenario += token_contract
 
     scenario.h1("MarketPlace")
     marketplace = Marketplace(token_contract.address, sp.utils.metadata_of_url("ipfs://QmR3NfLjUY4nxqhrcuFqsxEXXVJr22A6QvSskjd9MBzT9A"), admin.address)
     scenario += marketplace
-    scenario.h1("Mint")
-    #scenario.h2("Mint from admin")
-    #scenario += marketplace.mint(sp.record(royalties = 3, metadata = sp.pack("ipfs://bafyreibwl5hhjgrat5l7cmjlv6ppwghm6ijygpz2xor2r6incfcxnl7y3e/metadata.json"))).run(sender = admin, amount = sp.mutez(1000), valid = False)
     scenario.h2("Set admin")
     scenario += token_contract.set_administrator(marketplace.address).run(sender = admin)
-    #scenario.h2("Mint from admin")
-    #scenario += marketplace.mint(sp.record(royalties = 3, metadata = sp.pack("ipfs://bafyreibwl5hhjgrat5l7cmjlv6ppwghm6ijygpz2xor2r6incfcxnl7y3e/metadata.json"))).run(sender = admin,amount = sp.mutez(1000),)
     scenario.h2("Mint from Mark")
     scenario += marketplace.mint(sp.record(royalties = 3, metadata = sp.pack("123423"))).run(sender = mark, amount = sp.mutez(1000))
     scenario += marketplace.set_price_for_minting(2000).run(sender = admin)

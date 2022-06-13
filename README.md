@@ -20,7 +20,7 @@ in python.py
 
 
 ## Smart Contract Description
-Smart Contract documentation can be found in [here](https://docs.google.com/document/d/1mSohO1vVoUgKrwqcn4qFTxiDh-QAVOYznwf0fPzNlHE/edit?usp=sharing)
+Smart Contract documentation can be found [here](https://docs.google.com/document/d/1mSohO1vVoUgKrwqcn4qFTxiDh-QAVOYznwf0fPzNlHE/edit?usp=sharing)
 
 
 It covers next functions:

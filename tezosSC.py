@@ -12,19 +12,21 @@ class Marketplace(sp.Contract):
         self.royalties = 0
         self.fee =0
         self.init(
-            price_for_minting = 1000,
+            price_for_minting = sp.mutez(1000),
             to_cadaf = sp.nat(3),
             token = token,
             metadata = metadata,
             admin = admin,
-            data = sp.big_map(tkey=sp.TNat, tvalue=sp.TRecord(holder=sp.TAddress, author = sp.TAddress, owner = sp.TAddress, royalties=sp.TNat, token_id=sp.TNat, link_to_json = sp.TBytes, collectable=sp.TBool, amount=sp.TNat )),
+            data = sp.big_map(tkey=sp.TNat, tvalue=sp.TRecord(holder=sp.TAddress, author = sp.TAddress, owner = sp.TAddress, royalties=sp.TNat, token_id=sp.TNat, link_to_json = sp.TBytes, collectable=sp.TBool, amount=sp.TMutez )),
             token_id = 0,
             )
 
     @sp.entry_point
     def mint(self, params):
-        sp.verify(sp.amount == sp.utils.nat_to_mutez(self.data.price_for_minting))
+        sp.verify(sp.amount == self.data.price_for_minting)
+        sp.verify(params.royalties>=1)
         sp.verify(params.royalties<=7)
+        
         c = sp.contract(
             sp.TRecord(
             address=sp.TAddress,
@@ -45,7 +47,7 @@ class Marketplace(sp.Contract):
             sp.mutez(0), 
             c)
         
-        self.data.data[self.data.token_id] = sp.record(holder=sp.self_address, author = sp.sender, owner = sp.sender, royalties = params.royalties, token_id=self.data.token_id, link_to_json = params.metadata, collectable=False, amount = 1)
+        self.data.data[self.data.token_id] = sp.record(holder=sp.self_address, author = sp.sender, owner = sp.sender, royalties = params.royalties, token_id=self.data.token_id, link_to_json = params.metadata, collectable=False, amount = sp.mutez(1))
         self.data.token_id += 1
 
 
@@ -59,6 +61,21 @@ class Marketplace(sp.Contract):
     def set_price_for_minting(self, params):
         sp.verify(sp.sender == self.data.admin)
         self.data.price_for_minting = params
+    
+    @sp.entry_point
+    def transfer_token(self, params):
+        sp.verify(self.data.data[params.token_id].owner == sp.sender)
+        self.fa2_transfer(self.data.token, sp.self_address, sp.sender, params.token_id, 1)
+        self.data.data[params.token_id].owner = params.new_owner
+        self.data.data[params.token_id].collectable = False
+
+
+    @sp.entry_point
+    def cancel_selling(self, params):
+        sp.verify(self.data.data[params.token_id].collectable == True) 
+        sp.verify(self.data.data[params.token_id].owner == sp.sender)
+        self.data.data[params.token_id].collectable = False
+        self.data.data[params.token_id].amount = sp.mutez(0)
 
     @sp.entry_point
     def collect_management_rewards(self, params):
@@ -67,8 +84,8 @@ class Marketplace(sp.Contract):
 
     @sp.entry_point
     def collect(self, params):
-        sp.verify(sp.amount == sp.utils.nat_to_mutez(self.data.data[params.token_id].amount))
-        sp.verify(self.data.data[params.token_id].amount != 0) 
+        sp.verify(sp.amount == self.data.data[params.token_id].amount)
+        sp.verify(self.data.data[params.token_id].amount != sp.mutez(0))
         sp.verify(self.data.data[params.token_id].collectable == True) 
         sp.verify(self.data.data[params.token_id].owner != sp.sender)
 
@@ -79,6 +96,7 @@ class Marketplace(sp.Contract):
         sp.send(self.data.data[params.token_id].owner, sp.split_tokens(sp.amount,  sp.as_nat(toSender), 100))
 
         self.data.data[params.token_id].collectable = False
+        self.data.data[params.token_id].amount = sp.mutez(0)
         self.data.data[params.token_id].owner = sp.sender
         
         
@@ -87,7 +105,7 @@ class Marketplace(sp.Contract):
 
     @sp.entry_point
     def sell_token(self, params):
-        sp.verify((self.data.data[params.token_id].owner == sp.sender) & (params.amount > 0))
+        sp.verify((self.data.data[params.token_id].owner == sp.sender) & (params.amount > sp.mutez(0)))
         self.data.data[params.token_id].collectable = True
         self.data.data[params.token_id].amount = params.amount
 
@@ -123,19 +141,19 @@ def test():
     scenario += token_contract.set_administrator(marketplace.address).run(sender = admin)
     scenario.h2("Mint from Mark")
     scenario += marketplace.mint(sp.record(royalties = 3, metadata = sp.pack("123423"))).run(sender = mark, amount = sp.mutez(1000))
-    scenario += marketplace.set_price_for_minting(2000).run(sender = admin)
-    scenario += marketplace.mint(sp.record(royalties = 3, metadata = sp.pack("123423"))).run(sender = mark, amount = sp.mutez(2000))
+    scenario += marketplace.set_price_for_minting(sp.mutez(100)).run(sender = admin)
+    scenario += marketplace.mint(sp.record(royalties = 3, metadata = sp.pack("123423"))).run(sender = mark, amount = sp.mutez(100))
     scenario.h2("Withdraw")
-    scenario += marketplace.collect_management_rewards(sp.record(amount = sp.mutez(3000), address = admin.address)).run(sender = admin)
+    # scenario += marketplace.collect_management_rewards(sp.record(amount = sp.mutez(3000), address = admin.address)).run(sender = admin)
     scenario.h2("Mark sells his token")
-    scenario += marketplace.sell_token(sp.record(token_id = 1, amount = 5600000)).run(sender = mark)
+    scenario += marketplace.sell_token(sp.record(token_id = 1, amount = sp.mutez(560))).run(sender = mark)
     scenario.h2 ("Vera buys Mark's token")
-    scenario += marketplace.collect(sp.record(token_id = 1)).run(sender = vera, amount = sp.mutez(5600000))
+    scenario += marketplace.collect(sp.record(token_id = 1)).run(sender = vera, amount = sp.mutez(560))
     scenario.h2 ("Vera decide to sell new token")
-    scenario += marketplace.sell_token(sp.record(token_id = 1, amount = 9000000)).run(sender = vera)
+    scenario += marketplace.sell_token(sp.record(token_id = 1, amount = sp.mutez(900))).run(sender = vera)
+    scenario.h2 ("Vera transfer token to Elon")
+    scenario += marketplace.transfer_token(sp.record(token_id = 1, new_owner=mark.address)).run(sender = vera, valid = False)
     scenario.h2("Check all tokens")
     scenario += marketplace.collect(sp.record(token_id = 3)).run(sender = elon, valid = False)
     scenario.h2 ("Elon buys Vera's token")
-    scenario += marketplace.collect(sp.record(token_id = 1)).run(sender = elon, amount = sp.mutez(9000000), valid = False)
-   
-    
+    scenario += marketplace.collect(sp.record(token_id = 1)).run(sender = elon, amount = sp.mutez(900), valid = False)

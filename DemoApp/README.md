@@ -37,7 +37,7 @@ The **main JS file** can be found in ~src\utils\wallet.js
   *User mint NFT paying for its creation*
 
   **Input data:**  
-  -  royalties (author commission for further sales, no more than 7%: int)
+  -  royalties (author commission for further sales, 1<=percent<=7 : int)
   - name (NFT name: string)
   - description (NFT descsription: string)
   - link_to_image (link to NFT image: string)

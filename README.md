@@ -41,9 +41,17 @@ It covers next functions:
 
   *User puts his NFT up for sale*
 
+- ######  cancelSelling 
+
+  *User cancel selling his NFT*
+
 - ######  purchase
 
   *User buys NFT*
+  
+- ######  purchase
+
+  *User transfers NFT to another address*
 
 - ######   update_admin
 

@@ -122,4 +122,4 @@ The **main JS file** can be found in ~src\utils\wallet.js
 
 
 ## Notes:
-1. Smart Contract documentation can be found in [here](https://docs.google.com/document/d/1mSohO1vVoUgKrwqcn4qFTxiDh-QAVOYznwf0fPzNlHE/edit?usp=sharing)
+1. Smart Contract documentation can be found [here](https://docs.google.com/document/d/1mSohO1vVoUgKrwqcn4qFTxiDh-QAVOYznwf0fPzNlHE/edit?usp=sharing)

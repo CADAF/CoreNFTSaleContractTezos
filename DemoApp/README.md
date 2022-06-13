@@ -54,6 +54,15 @@ The **main JS file** can be found in ~src\utils\wallet.js
   **Output data:** None
 
 
+- ###  cancelSelling
+  *User strops selling his NFT*
+
+  **Input data:** 
+  - tokenID (user's NFT id: int)
+ 
+  **Output data:** None
+
+
 - ###  purchase
   *User buys NFT*
 
@@ -62,7 +71,16 @@ The **main JS file** can be found in ~src\utils\wallet.js
 
   **Output data:** None
 
+- ###  transfer_tokens
+  *User transfers NFT to another address*
 
+  **Input data:** 
+  - tokenID (user's NFT id: int)
+  - newOwner (recipient of token: address)
+ 
+  **Output data:** None
+  
+  
 - ###  withdraw
   *Give to admin of smart-contract an ability to withdraw all commissions*
 

@@ -65,7 +65,6 @@ class Marketplace(sp.Contract):
     @sp.entry_point
     def transfer_token(self, params):
         sp.verify(self.data.data[params.token_id].owner == sp.sender)
-        self.fa2_transfer(self.data.token, sp.self_address, sp.sender, params.token_id, 1)
         self.data.data[params.token_id].owner = params.new_owner
         self.data.data[params.token_id].collectable = False
 
@@ -143,6 +142,9 @@ def test():
     scenario += marketplace.mint(sp.record(royalties = 3, metadata = sp.pack("123423"))).run(sender = mark, amount = sp.mutez(1000))
     scenario += marketplace.set_price_for_minting(sp.mutez(100)).run(sender = admin)
     scenario += marketplace.mint(sp.record(royalties = 3, metadata = sp.pack("123423"))).run(sender = mark, amount = sp.mutez(100))
+    scenario.h2("Transfer")
+    scenario += marketplace.transfer_token(sp.record(token_id = 1, new_owner=vera.address)).run(sender = mark)
+    scenario += marketplace.transfer_token(sp.record(token_id = 1, new_owner=mark.address)).run(sender = vera)
     scenario.h2("Withdraw")
     # scenario += marketplace.collect_management_rewards(sp.record(amount = sp.mutez(3000), address = admin.address)).run(sender = admin)
     scenario.h2("Mark sells his token")
@@ -152,8 +154,6 @@ def test():
     scenario.h2 ("Vera decide to sell new token")
     scenario += marketplace.sell_token(sp.record(token_id = 1, amount = sp.mutez(900))).run(sender = vera)
     scenario.h2 ("Vera transfer token to Elon")
-    scenario += marketplace.transfer_token(sp.record(token_id = 1, new_owner=mark.address)).run(sender = vera, valid = False)
+    scenario += marketplace.transfer_token(sp.record(token_id = 1, new_owner=mark.address)).run(sender = vera)
     scenario.h2("Check all tokens")
     scenario += marketplace.collect(sp.record(token_id = 3)).run(sender = elon, valid = False)
-    scenario.h2 ("Elon buys Vera's token")
-    scenario += marketplace.collect(sp.record(token_id = 1)).run(sender = elon, amount = sp.mutez(900), valid = False)

@@ -155,5 +155,3 @@ def test():
     scenario += marketplace.sell_token(sp.record(token_id = 1, amount = sp.mutez(900))).run(sender = vera)
     scenario.h2 ("Vera transfer token to Elon")
     scenario += marketplace.transfer_token(sp.record(token_id = 1, new_owner=mark.address)).run(sender = vera)
-    scenario.h2("Check all tokens")
-    scenario += marketplace.collect(sp.record(token_id = 3)).run(sender = elon, valid = False)

@@ -135,32 +135,44 @@ def test():
     elon = sp.test_account("user2")
     vera = sp.test_account("user3")
     
-    
+    scenario.h1("Token contract")
     token_contract = Token(FA2.FA2_config(non_fungible = True), admin = admin.address, metadata = sp.utils.metadata_of_url("ipfs://QmeF48X9tNUriCibMUwBbkAASAEzS53zkg8CxEk1qHmjpy"))
     
     scenario += token_contract
 
-    scenario.h1("MarketPlace")
+    scenario.h1("MarketPlace contract")
     marketplace = Marketplace(token_contract.address, sp.utils.metadata_of_url("ipfs://QmR3NfLjUY4nxqhrcuFqsxEXXVJr22A6QvSskjd9MBzT9A"), admin.address)
     scenario += marketplace
-    scenario.h2("Set admin")
+    
+    scenario.h2("Successfully set administrator for token contract when sender is admin")
     scenario += token_contract.set_administrator(marketplace.address).run(sender = admin)
-    scenario.h2("Mint from Mark")
+    
+    scenario.h2("Successfully set price for minting when user is admin")
     scenario += marketplace.set_price_for_minting(sp.mutez(100)).run(sender = admin)
+    
+    scenario.h2("Sucessfully mint token when minting price set")
     scenario += marketplace.mint(sp.record(royalties = 3, metadata = sp.pack("123423"))).run(sender = vera, amount = sp.mutez(100))
-    scenario.h2("Vera sells his token")
+    
+    scenario.h2("Successfully set of token as available to purchase")
     scenario += marketplace.sell_token(sp.record(token_id = 0, amount = sp.mutez(560))).run(sender = vera)
-    scenario.h2 ("Mark buys Vera's token")
+    
+    scenario.h2 ("Successfully purchase of token when token available for purchase")
     scenario += marketplace.collect(sp.record(token_id = 0)).run(sender = mark, amount = sp.mutez(560))
-    scenario.h2 ("Mark decide to sell new token")
+    
+    scenario.h2("Successfully set of token as available for purchase when token was once purchased")
     scenario += marketplace.sell_token(sp.record(token_id = 0, amount = sp.mutez(900))).run(sender = mark)
-    scenario.h2 ("Vera buys Mark's token")
+    
+    scenario.h2 ("Successfully purchase of token when token available for purchase and token was once purchased")
     scenario += marketplace.collect(sp.record(token_id = 0)).run(sender = vera, amount = sp.mutez(900))
-    scenario.h2 ("Vera transfer token to Mark")
+    
+    scenario.h2 ("Successfully transfer of token that was once purchased")
     scenario += marketplace.transfer_token(sp.record(token_id = 0, new_owner=mark.address)).run(sender = vera)
-    scenario.h2 ("Mark decide to sell new token")
+    
+    scenario.h2("Successfully set of token as available to purchase when token was once transferred")
     scenario += marketplace.sell_token(sp.record(token_id = 0, amount = sp.mutez(900))).run(sender = mark)
-    scenario.h2 ("Vera buys Mark's token")
+    
+    scenario.h2 ("Successfully purchase of token when token available for purchase and was once transferred")
     scenario += marketplace.collect(sp.record(token_id = 0)).run(sender = vera, amount = sp.mutez(900))
-    scenario.h2 ("Vera transfer token to Elon")
+    
+    scenario.h2 ("Successfully transfer of token that was once transferred")
     scenario += marketplace.transfer_token(sp.record(token_id = 0, new_owner=elon.address)).run(sender = vera)
